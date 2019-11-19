@@ -2,7 +2,7 @@
 while($true)
 {
 $i++
-$remoto = "\\storage.etermax.com\it\Videos\TVs\testing"
+$remoto = "Z:"
 $local =  "C:\Users\soporte\Videos"
 $new_video = Get-Childitem $remoto -Filter "*.mp4"
 $last_video = Get-ChildItem $local -Filter "*.mp4"
@@ -13,10 +13,10 @@ if ((Get-ChildItem $remoto).Count -eq 1){
         date
         echo "iguales"
     }else {
-        Stop-Process -Name vlc
-        Start-Sleep -s 5
         Copy-Item –Path $new_video.FullName –Destination $local
         Start-Sleep -s 60
+        Stop-Process -Name vlc
+        Start-Sleep -s 5
         Remove-Item -Path $last_video.FullName
         start vlc -ArgumentList $local'\'$new_video, --fullscreen, --no-video-title-show, --repeat
     }
